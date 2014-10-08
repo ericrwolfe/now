@@ -178,12 +178,12 @@ func TestParse(t *testing.T) {
 		t.Errorf("Parse 23:28:9 Dec 19, 2013 PST")
 	}
 
-	if New(n).MustParse("23:28:9 Dec 19, 2013 PST").Location().String() != "PST" {
+	if tz := New(n).MustParse("23:28:9 Dec 19, 2013 PST").Location().String(); tz != "PST" && tz != "Local" {
 		t.Errorf("Parse 23:28:9 Dec 19, 2013 PST shouldn't lose time zone")
 	}
 
 	n2 := New(n).MustParse("23:28:9 Dec 19, 2013 PST")
-	if New(n2).MustParse("10:20").Location().String() != "PST" {
+	if tz := New(n2).MustParse("10:20").Location().String(); tz != "PST" && tz != "Local" {
 		t.Errorf("Parse 10:20 shouldn't change time zone")
 	}
 }
