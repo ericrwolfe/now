@@ -2,6 +2,7 @@ package now
 
 import (
 	"errors"
+	"log"
 	"regexp"
 	"time"
 )
@@ -124,6 +125,11 @@ func (now *Now) Parse(strs ...string) (t time.Time, err error) {
 			parseTime = []int{t.Second(), t.Minute(), t.Hour(), t.Day(), int(t.Month()), t.Year()}
 			onlyTime = onlyTime && (parseTime[3] == 1) && (parseTime[4] == 1)
 
+			log.Println(str)
+			log.Println(parseTime)
+			log.Println("only time", onlyTime)
+			log.Println("current time", setCurrentTime)
+
 			for i, v := range parseTime {
 				// Fill up missed information with current time
 				if v == 0 {
@@ -139,6 +145,8 @@ func (now *Now) Parse(strs ...string) (t time.Time, err error) {
 					parseTime[i] = currentTime[i]
 				}
 			}
+
+			log.Println(parseTime)
 		}
 
 		if len(parseTime) > 0 {
